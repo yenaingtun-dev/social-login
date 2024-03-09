@@ -4,8 +4,10 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
-    
-    @dd(json_decode($response->getBody()))
+
+    @isset($response)
+        @dd(json_decode($response->getBody()))
+    @endisset
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
