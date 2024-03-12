@@ -25,7 +25,13 @@ class AuthController extends Controller
             'password' => $request->password,
             'password_confirmation' => $request->password_confirmation
         ]);
-        return response()->json($response->collect(), $response->status());
+        if ($response->failed()) {
+            throw ValidationException::withMessages([
+                'email' => $response->json('data'),
+            ]);
+        }
+        session(['bearerToken' => $response->json('accessToken')]);
+        return redirect()->route('dashboard');
     }
 
     public function show_login()
@@ -44,7 +50,7 @@ class AuthController extends Controller
         ]);
         if ($response->failed()) {
             throw ValidationException::withMessages([
-                'email' => $response->json('message'),
+                'email' => $response->json('data'),
             ]);
         }
         session(['bearerToken' => $response->json('accessToken')]);
