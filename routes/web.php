@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PostController;
+use Faker\Guesser\Name;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +24,12 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+
+Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+Route::post('/posts/create', [PostController::class, 'store'])->name('posts.store');
+Route::get('posts/edit/{id}', [PostController::class, 'edit'])->name('posts.edit');
+Route::put('posts/edit/{id}', [PostController::class, 'update'])->name('posts.update');
+Route::delete('posts/{id}', [PostController::class, 'destory'])->name('posts.destory');
 
 Route::get('/register', [AuthController::class, 'show_register'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
