@@ -50,7 +50,7 @@ class AuthController extends Controller
         ]);
         if ($response->failed()) {
             throw ValidationException::withMessages([
-                'email' => $response->json('data'),
+                'email' => $response->json('message'),
             ]);
         }
         session(['bearerToken' => $response->json('accessToken')]);
